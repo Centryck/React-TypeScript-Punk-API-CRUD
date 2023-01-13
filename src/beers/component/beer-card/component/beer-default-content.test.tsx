@@ -1,6 +1,6 @@
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import BeerCard from "./";
-import { Beer } from '../../model';
+import { render, fireEvent, screen, act, waitFor } from '@testing-library/react';
+import BeerDefaultContent from "./beer-default-content";
+import { Beer } from '../../../model';
 
 const BEER_ITEM: Beer = {
 	id: 1,
@@ -19,17 +19,14 @@ const REMOVE_BEER = jest.fn();
 const UPDATE_BEER = jest.fn();
 
 const renderElement = () => {
-	const utils = 	render(<BeerCard beerItem={BEER_ITEM} removeBeer={REMOVE_BEER} updateBeer={UPDATE_BEER}/>)
+	const utils = 	render(<BeerDefaultContent beerItem={BEER_ITEM} onRemoveBeer={REMOVE_BEER} handleEditFields={UPDATE_BEER}/>)
 
 	const query = {
 		// Buttons
 		editButton: () => screen.queryByText("Edit"),
 		removeButton: () => screen.queryByText("Remove"),
-		cancelButton: () => screen.queryByText("Cancel"),
-		confirmButton: () => screen.queryByText("Confirm"),
 
 		// Beer items
-		img: () => screen.queryByTestId("beer-img"),
 		title: () => screen.queryByText("beer"),
 		tagline: () => screen.queryByText("tagline"),
 		bitterness: () => screen.queryByText("Bitterness: 5"),
@@ -48,9 +45,7 @@ describe(("BeerCard"), () => {
 
 		expect(query.editButton()).not.toBeNull();
 		expect(query.removeButton()).not.toBeNull();
-		expect(query.cancelButton()).toBeNull();
 
-		expect(query.img()).not.toBeNull();
 		expect(query.title()).not.toBeNull();
 		expect(query.tagline()).not.toBeNull();
 		expect(query.bitterness()).not.toBeNull();
@@ -70,46 +65,14 @@ describe(("BeerCard"), () => {
 		expect(REMOVE_BEER).toHaveBeenCalledTimes(1);
 	});
 
-	it('should change between states', async () => {
+	it("should call handleEditFields when user clicks edit button", async () => {
 		const {query} = renderElement();
 
 		expect(query.editButton()).not.toBeNull();
 		fireEvent.click(query.editButton()!);
 
 		await waitFor(() => {
-			expect(query.cancelButton()).not.toBeNull();
-		});
-		
-		expect(query.editButton()).toBeNull();
-
-		fireEvent.click(query.cancelButton()!);
-
-		await waitFor(() => {
-			expect(query.editButton()).not.toBeNull();
-		});
-
-		expect(query.cancelButton()).toBeNull();
-	});
-
-	it("should call onSubmit when user confirm changes", async () => {
-		const {query} = renderElement();
-
-		expect(query.editButton()).not.toBeNull();
-		fireEvent.click(query.editButton()!);
-
-		await waitFor(() => {
-			expect(query.confirmButton()).not.toBeNull();
-		});
-		
-		expect(query.editButton()).toBeNull();
-
-		fireEvent.click(query.confirmButton()!);
-
-		await waitFor(() => {
-			expect(query.editButton()).not.toBeNull();
-		});
-
-		expect(query.confirmButton()).toBeNull();
 		expect(UPDATE_BEER).toHaveBeenCalled();
+		});
 	})
 })

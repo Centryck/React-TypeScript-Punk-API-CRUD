@@ -10,7 +10,7 @@ export enum ButtonRole {
 	Create = "Create",
 }
 
-interface ButtonProps {
+export interface ButtonProps {
 	name: string;
 	role?: ButtonRole;
 	className?: string;

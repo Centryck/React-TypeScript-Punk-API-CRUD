@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent, screen, act, waitFor } from '@testing-library/react';
 import BeerEditableContent from "./beer-editable-content";
 import { Beer } from '../../../model';
@@ -19,89 +18,92 @@ const BEER_ITEM: Beer = {
 const ON_CANCEL = jest.fn();
 const ON_SUBMIT = jest.fn();
 
-describe(("BeerCard"), () => {
-	it("should render by default", () => {
-		render(<BeerEditableContent beerItem={BEER_ITEM} onCancel={ON_CANCEL} onSubmit={ON_SUBMIT} />)
+const renderElement = () => {
+	const utils = render(<BeerEditableContent beerItem={BEER_ITEM} onCancel={ON_CANCEL} onSubmit={ON_SUBMIT} />)
 
+
+	const query = {
 		// Buttons
-		const confirmButton = screen.getByText("Confirm");
-		const removeButton = screen.queryByText("Remove");
-		const cancelButton = screen.getByText("Cancel");
+		removeButton: () => screen.queryByText("Remove"),
+		cancelButton: () => screen.queryByText("Cancel"),
+		confirmButton: () => screen.queryByText("Confirm"),
 
 		// Beer items
-		const title = screen.getByTestId("beer-name");
-		const tagline = screen.getByTestId("beer-tagline");
-		const description = screen.getByTestId("beer-description")
-		const bitterness = screen.getByTestId("beer-bitterness");
-		const alcohol = screen.getByTestId("beer-alcohol");
-		const ebc = screen.getByTestId("beer-ebc");
-		const srm = screen.getByTestId("beer-srm");
-		const ph = screen.getByTestId("beer-ph");
+		img: () => screen.queryByTestId("beer-img"),
+		title: () => screen.getByTestId("beer-name"),
+		description: () => screen.getByTestId("beer-description"),
+		tagline: () => screen.getByTestId("beer-tagline"),
+		bitterness: () => screen.getByTestId("beer-bitterness"),
+		alcohol: () => screen.getByTestId("beer-alcohol"),
+		ebc: () => screen.getByTestId("beer-ebc"),
+		srm: () => screen.getByTestId("beer-srm"),
+		ph: () => screen.getByTestId("beer-ph"),
+	}
 
-		expect(confirmButton).not.toBeNull();
-		expect(cancelButton).not.toBeNull();
-		expect(removeButton).toBeNull();
+	return { ...utils, query }
+}
 
-		expect(title).not.toBeNull();
-		expect(title).toHaveValue("beer");
+describe(("BeerCard"), () => {
+	it("should render by default", () => {
+		const { query } = renderElement();
 
-		expect(description).not.toBeNull();
-		expect(description).toHaveValue("description");
+		expect(query.confirmButton()).not.toBeNull();
+		expect(query.cancelButton()).not.toBeNull();
+		expect(query.removeButton()).toBeNull();
 
-		expect(tagline).not.toBeNull();
-		expect(tagline).toHaveValue("tagline");
+		expect(query.title()).not.toBeNull();
+		expect(query.title()).toHaveValue("beer");
 
-		expect(bitterness).not.toBeNull();
-		expect(bitterness).toHaveValue(5);
+		expect(query.description()).not.toBeNull();
+		expect(query.description()).toHaveValue("description");
 
-		expect(ebc).not.toBeNull();
-		expect(ebc).toHaveValue(5);
+		expect(query.tagline()).not.toBeNull();
+		expect(query.tagline()).toHaveValue("tagline");
 
-		expect(alcohol).not.toBeNull();
-		expect(alcohol).toHaveValue(5);
+		expect(query.bitterness()).not.toBeNull();
+		expect(query.bitterness()).toHaveValue(5);
 
-		expect(srm).not.toBeNull();
-		expect(srm).toHaveValue(5);
+		expect(query.ebc()).not.toBeNull();
+		expect(query.ebc()).toHaveValue(5);
 
-		expect(ph).not.toBeNull();
-		expect(ph).toHaveValue(5);
+		expect(query.alcohol()).not.toBeNull();
+		expect(query.alcohol()).toHaveValue(5);
+
+		expect(query.srm()).not.toBeNull();
+		expect(query.srm()).toHaveValue(5);
+
+		expect(query.ph()).not.toBeNull();
+		expect(query.ph()).toHaveValue(5);
 	});
 
 	it('should call onCancel when cancel button is clicked', () => {
-		render(<BeerEditableContent beerItem={BEER_ITEM} onCancel={ON_CANCEL} onSubmit={ON_SUBMIT} />)
+		const { query } = renderElement();
 
-		const cancelButton = screen.getByText("Cancel");
-
-		expect(cancelButton).not.toBeNull();
-		fireEvent.click(cancelButton);
+		expect(query.cancelButton()).not.toBeNull();
+		fireEvent.click(query.cancelButton()!);
 
 		expect(ON_CANCEL).toHaveBeenCalledTimes(1);
 	});
 
 	it("should call onSubmit when confirm button is clicked", async () => {
-		render(<BeerEditableContent beerItem={BEER_ITEM} onCancel={ON_CANCEL} onSubmit={ON_SUBMIT} />)
+		const { query } = renderElement();
 
-		const confirmButton = screen.getByText("Confirm");
-
-		expect(confirmButton).not.toBeNull();
+		expect(query.confirmButton()).not.toBeNull();
 
 		// eslint-disable-next-line testing-library/no-unnecessary-act
 		await act(async () => {
-			fireEvent.click(confirmButton);
+			fireEvent.click(query.confirmButton()!);
 		});
 		expect(ON_SUBMIT).toHaveBeenCalledTimes(1);
 	});
 
 	it("allows user to edit the fields", async () => {
-		render(<BeerEditableContent beerItem={BEER_ITEM} onCancel={ON_CANCEL} onSubmit={ON_SUBMIT} />)
+		const { query } = renderElement();
 
-		const title = screen.getByTestId("beer-name");
-
-
-		fireEvent.change(title, { target: { value: "new title" } });
+		fireEvent.change(query.title(), { target: { value: "new title" } });
 
 		await waitFor(() => {
-			expect(title).toHaveValue("new title");
+			expect(query.title()).toHaveValue("new title");
 		})
 	})
 })
