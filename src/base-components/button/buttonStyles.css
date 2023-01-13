@@ -1,0 +1,43 @@
+.Button {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	min-width: 200px;
+	height: 36px;
+}
+
+.ButtonDefault {
+	background-color: rgb(243, 243, 243);
+	color: black;
+	border-color: gray;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 6px;
+}
+
+.ButtonPrimary {
+	background-color: #55a0de;
+	color: white;
+	border-radius: 6px;
+	border-color: gray;
+	border-width: 1px;
+	border-style: solid;
+	
+}
+
+.ButtonCreate {
+	background-color: #ffa025;
+	color: white;
+	border-radius: 6px;
+	border-color: gray;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.ButtonRemove {
+	background-color: #bd5e59e5;
+	color: white;
+	border-radius: 6px;
+	border-color: gray;
+	border-width: 1px;
+	border-style: solid;
+}

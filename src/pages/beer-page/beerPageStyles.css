@@ -1,0 +1,22 @@
+.container {
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+.createBeerButton {
+	margin-bottom: 16px;
+	margin-left: 16px;
+	padding-left: 16px;
+	padding-right: 16px;
+
+	padding-top: 12px;
+	padding-bottom: 12px;
+
+	font-weight: bolder;
+}
+
+.beersListContainer {
+	margin-top: 16px;
+}

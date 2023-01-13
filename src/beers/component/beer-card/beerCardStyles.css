@@ -1,0 +1,110 @@
+.beerComponent {
+	display: flex;
+	flex-direction: row;
+	width: 70%;
+	max-width: 1200px;
+	padding-bottom: 16px;
+	border-bottom-color: #c8c8c8;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	margin-top: 16px;
+	margin-bottom: 24px;
+}
+
+.beerImage {
+	width: "auto";
+	height: 150px;
+}
+
+.imageContainer {
+	width: 150px;
+	display: flex;
+	justify-content: center;
+}
+
+.textContainer {
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+}
+
+.specificationsContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.contentContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.cardContainer {
+	width: 100%;
+}
+
+.buttonContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-self: flex-end;
+	width: 416px;
+	margin-top: 12px;
+	margin-left: auto;
+	margin-right: 0;
+}
+
+.ContentConfirmButton {
+	margin-bottom: 8px;
+}
+
+.inputFields {
+	min-width: 160px;
+	width: 80%;
+	margin-bottom: 12px;
+}
+
+textarea {
+	min-height: 200px;
+	width: 400px;
+	resize: none;
+}
+
+.beerItemName {
+	font-size: 18px;
+	font-weight: bolder;
+}
+
+.beerTagline {
+	font-style: italic;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.beerDescription {
+	font-size: 14px;
+}	
+
+@media screen and (max-width: 768px) {
+		.beerComponent {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.buttonContainer {
+			flex-direction: row;
+			align-self: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.beerImage {
+			width: "auto";
+			height: 260px;
+		}
+	}

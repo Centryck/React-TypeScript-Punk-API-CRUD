@@ -1,0 +1,92 @@
+.createBeerForm {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 32px;
+	width: 70%;
+	max-width: 1200px;
+	border-color: #c8c8c8;
+	border-width: 1px;
+	border-style: solid;
+	padding: 16px;
+	background-color: rgba(255, 228, 196, 0.313);
+	justify-content: space-around;
+}
+
+.textCreateBeerContainer {
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+}
+
+.specificationsCreateBeerContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-self: flex-start;
+}
+
+.contentCreateBeerContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.containerButtonCreateBeerForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-self: flex-end;
+	width: 200px;
+}
+
+.ConfirmButtonForm {
+	margin-bottom: 8px;
+}
+
+.createBeerInputFields {
+	min-width: 160px;
+	width: 80%;
+	margin-bottom: 12px;
+}
+
+@media screen and (max-width: 768px) {
+	.createBeerForm {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	.specificationsCreateBeerContainer {
+		width: 60%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-self: flex-start;
+	}
+
+	.createBeerInputFields {
+		min-width: 160px;
+		height: 24px;
+		width: 100%;
+		margin-bottom: 12px;
+	}
+
+	.containerButtonCreateBeerForm {
+		flex-direction: column;
+		align-self: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.specificationsCreateBeerContainer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-self: center;
+	}
+}
